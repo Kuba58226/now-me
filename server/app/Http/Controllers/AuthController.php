@@ -51,6 +51,7 @@ class AuthController extends Controller
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
+            'phone_number' => 'required|string|unique:users|min:9|max:9',
         ]);
 
         if($validator->fails()){
@@ -59,7 +60,8 @@ class AuthController extends Controller
 
         $user = User::create(array_merge(
                     $validator->validated(),
-                    ['password' => bcrypt($request->password)]
+                    ['password' => bcrypt($request->password),
+                    'role' => 'user']
                 ));
 
         return response()->json([

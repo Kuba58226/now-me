@@ -3,41 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use function GuzzleHttp\Promise\all;
+use App\Http\Resources\Cabinet as CabinetResource;
 use App\Models\Cabinet;
-use Validator;
 
 class CabinetController extends Controller
 {
-    public function getCabinets(Request $request){
-        $cabinets = Cabinet::all();
-        return response()->json([
-            'message' => 'Success',
-            'cabinets' => $cabinets
-        ], 201);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCabinets()
+    {
+        // Get all Cabinets
+        $cabinets = Cabinet::paginate(15);
+
+        // Return collection of Cabinets as a resource
+        return CabinetResource::collection($cabinets);
     }
 
-    public function addCabinet(Request $request){
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3',
-        ]);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $cabinet = $request->isMethod('put') ? Cabinet::findOrFail
+        ($request->cabinet_id) : new Cabinet;
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        $cabinet->id = $request->input('cabinet_id');
+        $cabinet->name = $request->input('name');
+        if($cabinet->save()){
+            return new CabinetResource($cabinet);
         }
-
-        $cabinet = Cabinet::create(array_merge(
-            $validator->validated(),
-        ));
-
-        return response()->json([
-            'message' => 'Cabinet successfully created',
-            'cabinet' => $cabinet
-        ], 201);
     }
 
-    public function editCabinet(Request $request){
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3',
-        ]);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getSingleCabinet($id)
+    {
+        // Get all Cabinets
+        $cabinets = Cabinet::FindOrFail($id);
+
+        // Return collection of Cabinets as a resource
+        return new CabinetResource($cabinets);
     }
 }

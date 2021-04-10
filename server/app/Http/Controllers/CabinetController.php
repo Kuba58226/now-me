@@ -33,6 +33,11 @@ class CabinetController extends Controller
             'message' => 'Cabinet successfully created',
             'cabinet' => $cabinet
         ], 201);
+    }
 
+    public function editCabinet(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:3',
+        ]);
     }
 }

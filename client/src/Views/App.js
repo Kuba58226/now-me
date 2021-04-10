@@ -4,13 +4,19 @@ import { GlobalStyle } from 'assets/styles/GlobalStyle';
 import { theme } from 'assets/styles/theme';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import RegisterView from './RegisterView';
+import LoginView from './LoginView';
 
 function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <RegisterView />
+        <Route path="/" exact>
+          <LoginView />
+        </Route>
+        <Route path="/register">
+          <RegisterView />
+        </Route>
       </ThemeProvider>
     </Router>
   );

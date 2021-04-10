@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CabinetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\AuthController;
 // });
 
 Route::group([
-    // 'middleware' => 'api',
+    'middleware' => 'api',
     'prefix' => 'auth'
 
 ], function ($router) {
@@ -29,4 +30,16 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+});
+
+Route::group([
+    'middleware' => 'is.admin',
+    'prefix' => 'cabinet'
+], function($router){
+    Route::get('get',[CabinetController::class,'getCabinets']);
+    Route::post('add',[CabinetController::class,'addCabinet']);
+});
+
+Route::get('/test',function(){
+    return 'test';
 });

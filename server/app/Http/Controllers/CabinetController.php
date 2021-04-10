@@ -34,7 +34,7 @@ class CabinetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function createCabinet(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:cabinets|string|min:3',
@@ -44,13 +44,33 @@ class CabinetController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $cabinet = $request->isMethod('put') ? Cabinet::findOrFail
-        ($request->id) : new Cabinet;
+        $cabinet = new Cabinet;
 
         $cabinet->name = $request->input('name');
         if($cabinet->save()){
             return response()->json([
                 'message' => 'Cabinet successfully created',
+                'cabinet' => new CabinetResource($cabinet)
+            ], 201);
+        }
+    }
+
+    public function updateCabinet(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:cabinets|string|min:3',
+            'id' => 'required|int'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $cabinet = Cabinet::findOrFail($request->id);
+
+        $cabinet->name = $request->input('name');
+        if($cabinet->save()){
+            return response()->json([
+                'message' => 'Cabinet successfully updated',
                 'cabinet' => new CabinetResource($cabinet)
             ], 201);
         }

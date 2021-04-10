@@ -36,8 +36,8 @@ Route::group([
 ], function($router){
     Route::get('/cabinets',[CabinetController::class,'getCabinets']);
     Route::get('/cabinet/{id}',[CabinetController::class,'getSingleCabinet']);
-    Route::post('/cabinet',[CabinetController::class,'store']);
-    Route::put('/cabinet',[CabinetController::class,'store']);
+    Route::post('/cabinet',[CabinetController::class,'createCabinet']);
+    Route::put('/cabinet',[CabinetController::class,'updateCabinet']);
 });
 
 Route::get('/test',function(){

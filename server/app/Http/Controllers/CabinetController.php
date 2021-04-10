@@ -39,13 +39,14 @@ class CabinetController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:cabinets|string|min:3',
         ]);
-        $cabinet = $request->isMethod('put') ? Cabinet::findOrFail
-        ($request->id) : new Cabinet;
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        $cabinet->id = $request->input('id');
+
+        $cabinet = $request->isMethod('put') ? Cabinet::findOrFail
+        ($request->id) : new Cabinet;
+
         $cabinet->name = $request->input('name');
         if($cabinet->save()){
             return response()->json([
@@ -63,10 +64,10 @@ class CabinetController extends Controller
      */
     public function getSingleCabinet($id)
     {
-        // Get all Cabinets
+        // Get single Cabinet
         $cabinets = Cabinet::FindOrFail($id);
 
-        // Return collection of Cabinets as a resource
+        // Return single Cabinet as a resource
         return response()->json([
             'message' => 'Success',
             'cabinets' => new CabinetResource($cabinets)

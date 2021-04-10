@@ -21,6 +21,8 @@ const initialFormState = {
 const RegisterView = () => {
 
   const [formValues, setFormValues] = useState(initialFormState);
+  const [user, setUser] = useState([]);
+
 
   const handleInputChange = (event) => {
     console.log(formValues);
@@ -30,7 +32,7 @@ const RegisterView = () => {
     });
   };
 
-  const handleSumbitRegister = (event) =>{
+  const handleSubmitRegister = (event) =>{
     event.preventDefault();
     const newUser = {
       name: formValues.name,
@@ -39,11 +41,13 @@ const RegisterView = () => {
       email: formValues.email,
       password: formValues.password,
       confirmPassword: formValues.confirmPassword,
-    }
-  }
+    };
+    setUser(newUser);
+    console.log(user);
+  };
 
   return (
-    <Wrapper as="form">
+    <Wrapper as="form" onSubmit={handleSubmitRegister}>
       <FormField label="Name" id="name" name="name" value={formValues.name} onChange={handleInputChange} />
       <FormField label="Last Name" id="lastname" name="lastname" value={formValues.lastname} onChange={handleInputChange} />
       <FormField label="Phone Number" id="phoneNumber" name="phoneNumber" value={formValues.phoneNumber} onChange={handleInputChange} />

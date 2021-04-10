@@ -3,6 +3,10 @@ import FormField from '../components/molecules/FormField/FormField';
 import styled from 'styled-components';
 import { Button } from '../components/atoms/Button/Button';
 import axios from 'axios';
+import Alert from '@material-ui/lab/Alert';
+
+import { ReactComponent as ManLogo } from '../assets/images/Group.svg';
+import { ReactComponent as WomenLogo } from '../assets/images/Group-1.svg';
 
 const initialFormState = {
   email: '',
@@ -20,12 +24,14 @@ const LoginView = () => {
     });
   };
 
-  useEffect(() => {
-    axios
+  const handleLogin = async () => {
+    await axios
       .post('http://127.0.0.1:8000/api/auth/login', user)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
-  }, [user]);
+  };
+
+  useEffect(() => handleLogin, [user]);
 
   const handleSubmitRegister = (event) => {
     event.preventDefault();
@@ -37,13 +43,16 @@ const LoginView = () => {
   };
 
   return (
-    <Wrapper as="form" onSubmit={handleSubmitRegister}>
-      <LeftSide>
+    <Wrapper>
+      <LeftSide as="form" onSubmit={handleSubmitRegister}>
         <FormField label="Email" id="email" name="email" onChange={handleInputChange} />
         <FormField label="Password" id="password" name="password" type="password" onChange={handleInputChange} />
-        <Button onClick={handleInputChange}>Login</Button>
+        <Button type="submit">Login</Button>
       </LeftSide>
-      <RightSide>Działa</RightSide>
+      <RightSide>
+        <Women />
+        <Man />
+      </RightSide>
     </Wrapper>
   );
 };
@@ -69,4 +78,18 @@ const LeftSide = styled.div`
 const RightSide = styled.div`
   display: flex;
   flex: 0.4;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const Man = styled(ManLogo)`
+  height: 200px;
+`;
+
+const Women = styled(WomenLogo)`
+  height: 200px;
 `;

@@ -29,15 +29,15 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
 });
-
 Route::group([
     'middleware' => 'is.admin',
-    'prefix' => 'cabinet'
 ], function($router){
-    Route::get('get',[CabinetController::class,'getCabinets']);
-    Route::post('add',[CabinetController::class,'addCabinet']);
+    Route::get('/cabinets',[CabinetController::class,'getCabinets']);
+    Route::get('/cabinet/{id}',[CabinetController::class,'getSingleCabinet']);
+    Route::post('/cabinet',[CabinetController::class,'store']);
+    Route::put('/cabinet',[CabinetController::class,'store']);
 });
 
 Route::get('/test',function(){

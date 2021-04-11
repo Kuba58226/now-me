@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import FormField from '../components/molecules/FormField/FormField';
 import styled from 'styled-components';
 import { Button } from '../components/atoms/Button/Button';
@@ -19,11 +19,8 @@ const initialFormState = {
 };
 
 const RegisterView = () => {
-
   const [formValues, setFormValues] = useState(initialFormState);
   const [user, setUser] = useState([]);
-
-
   const handleInputChange = (event) => {
     console.log(formValues);
     setFormValues({
@@ -32,7 +29,7 @@ const RegisterView = () => {
     });
   };
 
-  const handleSubmitRegister = (event) =>{
+  const handleSubmitRegister = (event) => {
     event.preventDefault();
     const newUser = {
       name: formValues.name,
@@ -51,9 +48,16 @@ const RegisterView = () => {
       <FormField label="Name" id="name" name="name" value={formValues.name} onChange={handleInputChange} />
       <FormField label="Last Name" id="lastname" name="lastname" value={formValues.lastname} onChange={handleInputChange} />
       <FormField label="Phone Number" id="phoneNumber" name="phoneNumber" value={formValues.phoneNumber} onChange={handleInputChange} />
-      <FormField label="E-mail" id="email" name="email" value={formValues.email}  onChange={handleInputChange} />
+      <FormField label="E-mail" id="email" name="email" value={formValues.email} onChange={handleInputChange} />
       <FormField label="Password" id="password" name="password" type="password" value={formValues.password} onChange={handleInputChange} />
-      <FormField label="Confirm password" id="confirmPassword" name="confirmPassword" type="password" value={formValues.confirmPassword} onChange={handleInputChange} />
+      <FormField
+        label="Confirm password"
+        id="confirmPassword"
+        name="confirmPassword"
+        type="password"
+        value={formValues.confirmPassword}
+        onChange={handleInputChange}
+      />
       <Button type="submit">Register</Button>
     </Wrapper>
   );

@@ -3,6 +3,7 @@ import FormField from '../components/molecules/FormField/FormField';
 import styled from 'styled-components';
 import { Button } from '../components/atoms/Button/Button';
 import axios from "axios";
+import useRegisterForm from "../hooks/useRegisterForm";
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,38 +11,41 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const initialFormState = {
-  name: '',
-  lastname: '',
-  phone_number: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
-};
+// const initialFormState = {
+//   name: '',
+//   lastname: '',
+//   phone_number: '',
+//   email: '',
+//   password: '',
+//   password_confirmation: '',
+// };
 
 const RegisterView = () => {
 
-  const [formValues, setFormValues] = useState(initialFormState);
-
-    const fetchData = async () =>  {
-         await axios
-            .post('http://127.0.0.1:8000/api/auth/register', formValues)
-            .then(response => console.log(response))
-            .catch(err => console.log(err))
-    }
 
 
-  const handleInputChange = (event) => {
-    setFormValues({
-      ...formValues,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmitRegister = (event) =>{
-    event.preventDefault();
-    fetchData();
-  };
+  // const [formValues, setFormValues] = useState(initialFormState);
+  //
+  //   const fetchData = async () =>  {
+  //        await axios
+  //           .post('http://127.0.0.1:8000/api/auth/register', formValues)
+  //           .then(response => console.log(response))
+  //           .catch(err => console.log(err))
+  //   }
+  //
+  //
+  // const handleInputChange = (event) => {
+  //   setFormValues({
+  //     ...formValues,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
+  //
+  // const handleSubmitRegister = (event) =>{
+  //   event.preventDefault();
+  //   fetchData();
+  // };
+  const {handleInputChange,handleSubmitRegister,formValues} = useRegisterForm();
 
   return (
     <Wrapper as="form" onSubmit={handleSubmitRegister}>

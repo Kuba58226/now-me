@@ -4,7 +4,7 @@ import { GlobalStyle } from 'assets/styles/GlobalStyle';
 import { theme } from 'assets/styles/theme';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import RegisterView from './RegisterView';
-import MainTemplate from "../components/templates/MainTemplate/MainTemplate";
+import MainTemplate from '../components/templates/MainTemplate/MainTemplate';
 
 function App() {
   return (
@@ -12,11 +12,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MainTemplate>
-            <Switch>
-                <Route path="/sign-in">
-                    <RegisterView />
-                </Route>
-            </Switch>
+          <Switch>
+            <Route path="/sign-in">
+              <RegisterView />
+            </Route>
+          </Switch>
         </MainTemplate>
       </ThemeProvider>
     </Router>

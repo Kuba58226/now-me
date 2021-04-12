@@ -17,15 +17,17 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Route path="/" exact>
-          <LoginView />
-        </Route>
-        <Route path="/register">
-          <RegisterView />
-        </Route>
-        <Route path="/homepage">
-          <HomePage />
-        </Route>
+        <Switch>
+          <Route path="/" exact>
+            <LoginView />
+          </Route>
+          <Route path="/register">
+            <RegisterView />
+          </Route>
+          <Route path="/homepage">
+            <HomePage />
+          </Route>
+        </Switch>
       </ThemeProvider>
     </Router>
   );

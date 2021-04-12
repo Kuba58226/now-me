@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import FormField from '../components/molecules/FormField/FormField';
-import styled from 'styled-components';
 import { Button } from '../components/atoms/Button/Button';
 
 import { ReactComponent as ManLogo } from '../assets/images/Group.svg';
@@ -10,6 +10,9 @@ import { ReactComponent as WomenLogo } from '../assets/images/Group-1.svg';
 
 import { useDispatch } from 'react-redux';
 import { enterUserToken } from '../features/appSlice';
+
+import { Alert } from '@material-ui/lab';
+import Swal from 'sweetalert2';
 
 const initialFormState = {
   email: '',
@@ -22,7 +25,6 @@ const initialValidState = {
 };
 
 const LoginView = () => {
-  const [user, setUser] = useState([]);
   const [formValues, setFormValues] = useState(initialFormState);
   const [isValid, setIsValid] = useState(initialValidState);
 
@@ -36,54 +38,70 @@ const LoginView = () => {
     });
   };
 
-  const handleLogin = () => {
-    axios
-      .post('http://127.0.0.1:8000/api/auth/login', user)
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(
-            enterUserToken({
-              userToken: response.data.access_token,
-            })
-          );
-          history.push('/homepage');
-        } else {
-          alert('coś poszło nie tak');
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => handleLogin, [user]);
-
-  const handleSubmitRegister = (event) => {
-    event.preventDefault();
-    const newUser = {
-      email: formValues.email,
-      password: formValues.password,
-    };
-    setUser(newUser);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (isValid.email === true && formValues.email.length > 0 && isValid.password === true && formValues.password.length > 0) {
+      axios
+        .post('http://127.0.0.1:8000/api/auth/login', {
+          email: formValues.email,
+          password: formValues.password,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            dispatch(
+              enterUserToken({
+                userToken: response.data.access_token,
+              })
+            );
+            history.push('/homepage');
+          } else {
+            alert('coś poszło nie tak');
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href>Why do I have this issue?</a>',
+      });
+    }
   };
 
   const handleValidData = (e) => {
-    if (e.target.name === 'email')
+    if (e.target.name === 'email') {
       if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(formValues.email)) {
         setIsValid({
           ...isValid,
           [e.target.name]: true,
         });
       } else {
-        setIsValid({
-          ...isValid,
-          [e.target.name]: false,
-        });
+        if (formValues.email.length === 0) {
+          setIsValid({
+            ...isValid,
+            email: true,
+          });
+        } else {
+          setIsValid({
+            ...isValid,
+            [e.target.name]: false,
+          });
+        }
       }
-    else if (e.target.name === 'password') {
+    } else if (e.target.name === 'password') {
       if (formValues.password.length < 8) {
-        setIsValid({
-          ...isValid,
-          [e.target.name]: false,
-        });
+        if (formValues.password.length === 0) {
+          setIsValid({
+            ...isValid,
+            password: true,
+          });
+        } else {
+          setIsValid({
+            ...isValid,
+            [e.target.name]: false,
+          });
+        }
       } else {
         setIsValid({
           ...isValid,
@@ -98,17 +116,25 @@ const LoginView = () => {
       <Wrapper>
         <LeftSide>
           <h2>Now You !</h2>
-          <Form as="form" onSubmit={handleSubmitRegister}>
+          <Form as="form" onSubmit={handleLogin}>
             <FormField label="Email" id="email" name="email" onChange={handleInputChange} onBlur={handleValidData} />
-            {isValid.email === false ? <p>Wrong email format</p> : null}
+            {isValid.email === false ? (
+              <Alert variant="filled" severity="error" style={{ marginTop: '10px' }}>
+                Entered Email address is Invalid
+              </Alert>
+            ) : null}
             <FormField label="Password" id="password" name="password" type="password" onChange={handleInputChange} onBlur={handleValidData} />
-            {isValid.password === false ? <p>Password is too short </p> : null}
+            {isValid.password === false ? (
+              <Alert variant="filled" severity="error" style={{ marginTop: '10px' }}>
+                Password is too short !
+              </Alert>
+            ) : null}
             <Button type="submit">Login</Button>
           </Form>
           <p>Forgot password ? </p>
           <Register>
             <p>Not Our Member?</p>
-            <h4>SIGN UP</h4>
+            <h4 onClick={() => history.push('/register')}>SIGN UP</h4>
           </Register>
         </LeftSide>
 

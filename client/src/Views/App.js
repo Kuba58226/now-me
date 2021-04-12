@@ -7,6 +7,8 @@ import RegisterView from './RegisterView';
 import MainTemplate from "../components/templates/MainTemplate/MainTemplate";
 
 function App() {
+  const userToken = useSelector(selectUserToken);
+
   return (
     <Router>
       <ThemeProvider theme={theme}>

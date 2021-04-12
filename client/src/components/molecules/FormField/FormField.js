@@ -15,8 +15,7 @@ const Wrapper = styled.div`
     margin-top: 5px;
   }
 `;
-
-const FormField = ({ value, onChange, onBlur, label, name, id, type = 'text', ...props }) => {
+const FormField = ({ value, onBlur, onChange, label, name, id, type = 'text', ...props }) => {
   return (
     <Wrapper>
       <Label htmlFor={id}>{label}</Label>

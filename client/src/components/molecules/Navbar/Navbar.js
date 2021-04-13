@@ -22,9 +22,12 @@ export const Navbar = ({ toggle }) => {
             <NavItem>
               <NavLinks to="about">About</NavLinks>
             </NavItem>
+            <NavItem>
+              <NavLinks to="admin-panel">Admin panel</NavLinks>
+            </NavItem>
           </NavMenu>
           <NavBtn>
-            <NavBtnLink to="/sign-in"> Sign In</NavBtnLink>
+            <NavBtnLink to="/login"> Sign In</NavBtnLink>
           </NavBtn>
         </NavContainer>
       </Nav>

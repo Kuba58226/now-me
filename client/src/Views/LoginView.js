@@ -48,17 +48,32 @@ const LoginView = () => {
         })
         .then((response) => {
           if (response.status === 200) {
+            console.log(response);
             dispatch(
               enterUserToken({
                 userToken: response.data.access_token,
               })
             );
-            history.push('/homepage');
-          } else {
-            alert('coś poszło nie tak');
+            Swal.fire({
+              icon: 'success',
+              title: 'Successful login',
+              confirmButtonText: `Ok`,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                {
+                  history.push('/');
+                }
+              }
+            });
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Wrong username or password',
+            confirmButtonText: `Ok`,
+          });
+        });
     } else {
       Swal.fire({
         icon: 'error',
@@ -134,7 +149,7 @@ const LoginView = () => {
           <p>Forgot password ? </p>
           <Register>
             <p>Not Our Member?</p>
-            <h4 onClick={() => history.push('/register')}>SIGN UP</h4>
+            <h4 onClick={() => history.push('/sing-in')}>SIGN UP</h4>
           </Register>
         </LeftSide>
 

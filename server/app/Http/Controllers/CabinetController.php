@@ -10,30 +10,24 @@ use Validator;
 
 class CabinetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function getCabinets()
     {
-        // Get all Cabinets
         $cabinets = Cabinet::all();
 
-        // Return collection of Cabinets as a resource
-//        return CabinetResource::collection($cabinets);
         return response()->json([
-            'message' => 'Success',
+            'message' => 'Cabinets successfully returned',
             'cabinets' => CabinetResource::collection($cabinets)
         ], 201);
     }
+    public function getSingleCabinet(Request $request)
+    {
+        $cabinets = Cabinet::FindOrFail($request->id);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+        return response()->json([
+            'message' => 'Cabinet successfully returned',
+            'cabinets' => new CabinetResource($cabinets)
+        ], 201);
+    }
     public function createCabinet(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -46,7 +40,8 @@ class CabinetController extends Controller
 
         $cabinet = new Cabinet;
 
-        $cabinet->name = $request->input('name');
+        $cabinet->name = $request->name;
+
         if($cabinet->save()){
             return response()->json([
                 'message' => 'Cabinet successfully created',
@@ -54,11 +49,9 @@ class CabinetController extends Controller
             ], 201);
         }
     }
-
     public function updateCabinet(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:cabinets|string|min:3',
-            'id' => 'required|int'
         ]);
 
         if ($validator->fails()) {
@@ -74,23 +67,5 @@ class CabinetController extends Controller
                 'cabinet' => new CabinetResource($cabinet)
             ], 201);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getSingleCabinet($id)
-    {
-        // Get single Cabinet
-        $cabinets = Cabinet::FindOrFail($id);
-
-        // Return single Cabinet as a resource
-        return response()->json([
-            'message' => 'Success',
-            'cabinets' => new CabinetResource($cabinets)
-        ], 201);
     }
 }

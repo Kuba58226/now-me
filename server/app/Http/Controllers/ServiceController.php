@@ -34,7 +34,6 @@ class ServiceController extends Controller
             'service_length' => 'required|integer',
             'employee_id' => 'required|exists:employees,id',
         ]);
-
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }

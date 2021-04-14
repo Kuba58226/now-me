@@ -10,6 +10,7 @@ import LoginView from './LoginView';
 import { useSelector } from 'react-redux';
 import { selectUserToken } from '../features/appSlice';
 import AdminPanel from './AdminPanel';
+import HomePage from './HomePage';
 
 function App() {
   const token = useSelector(selectUserToken);
@@ -20,6 +21,9 @@ function App() {
         <GlobalStyle />
         <MainTemplate>
           <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
             <Route path="/sign-in">
               <RegisterView />
             </Route>

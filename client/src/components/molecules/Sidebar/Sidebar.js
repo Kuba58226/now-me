@@ -13,9 +13,10 @@ const Sidebar = ({ isOpen, toggle }) => {
           <SidebarLink to="Discover">Discover</SidebarLink>
           <SidebarLink to="About">About</SidebarLink>
           <SidebarLink to="page">Page</SidebarLink>
+          <SidebarLink to="/admin-panel">Admin Panel</SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          <SidebarRoute to="/sign-in">Sign In</SidebarRoute>
+          <SidebarRoute to="/login">Sign In</SidebarRoute>
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>

@@ -9,7 +9,7 @@ import { ReactComponent as ManLogo } from '../assets/images/Group.svg';
 import { ReactComponent as WomenLogo } from '../assets/images/Group-1.svg';
 
 import { useDispatch } from 'react-redux';
-import { enterUserToken } from '../features/appSlice';
+import { enterUserToken, enterUserRole } from '../features/appSlice';
 
 import { Alert } from '@material-ui/lab';
 import Swal from 'sweetalert2';
@@ -47,13 +47,19 @@ const LoginView = () => {
           password: formValues.password,
         })
         .then((response) => {
+          console.log(response.data.user.role);
           if (response.status === 200) {
-            console.log(response);
             dispatch(
               enterUserToken({
                 userToken: response.data.access_token,
               })
             );
+            dispatch(
+              enterUserRole({
+                userRole: response.data.user.role,
+              })
+            );
+
             Swal.fire({
               icon: 'success',
               title: 'Successful login',

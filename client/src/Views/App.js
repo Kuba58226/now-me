@@ -8,12 +8,14 @@ import MainTemplate from '../components/templates/MainTemplate/MainTemplate';
 import LoginView from './LoginView';
 
 import { useSelector } from 'react-redux';
-import { selectUserToken } from '../features/appSlice';
+import { selectUserToken, selectUserRole } from '../features/appSlice';
 import AdminPanel from './AdminPanel';
 import HomePage from './HomePage';
+import ProtectedRoute from 'ProtectedRoute/ProtectedRoute';
 
 function App() {
   const token = useSelector(selectUserToken);
+  const role = useSelector(selectUserRole);
 
   return (
     <Router>
@@ -30,9 +32,7 @@ function App() {
             <Route path="/login">
               <LoginView />
             </Route>
-            <Route path="/admin-panel">
-              <AdminPanel />
-            </Route>
+            <ProtectedRoute path="/admin-panel" component={AdminPanel} isAuth={role} />
           </Switch>
         </MainTemplate>
       </ThemeProvider>

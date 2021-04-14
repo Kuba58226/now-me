@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,3 +76,19 @@ Route::group([
     Route::get('/services',[ServiceController::class,'getServices']);
     Route::get('/service/{id}',[ServiceController::class,'getService']);
 });
+
+// Wizyty
+Route::group([
+    'middleware' => 'is.admin',
+], function($router){
+    Route::get('/visits',[VisitController::class,'getVisits']);
+    Route::put('/visit/{id}',[VisitController::class,'updateIsPaid']);
+});
+
+Route::group([
+], function($router){
+    Route::get('/visit/{id}',[VisitController::class,'getSingleVisit']);
+    Route::post('/visit',[VisitController::class,'createVisit']);
+    Route::delete('/visit/{id}',[VisitController::class,'destroyVisit']);
+});
+

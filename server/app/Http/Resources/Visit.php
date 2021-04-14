@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Cabinet extends JsonResource
+class Visit extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,8 +14,6 @@ class Cabinet extends JsonResource
      */
     public function toArray($request)
     {
-        return ['id' => $this->id,
-            'name' => $this->name
-        ];
+        return parent::toArray($request);
     }
 }

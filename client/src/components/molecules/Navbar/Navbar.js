@@ -8,7 +8,7 @@ export const Navbar = ({ toggle }) => {
     <>
       <Nav>
         <NavContainer>
-          <NavLogo to="\">Novme</NavLogo>
+          <NavLogo to="/">Novme</NavLogo>
           <MobileIcon onClick={toggle}>
             <FaBars />
           </MobileIcon>
@@ -23,7 +23,7 @@ export const Navbar = ({ toggle }) => {
               <NavLinks to="about">About</NavLinks>
             </NavItem>
             <NavItem>
-              <NavLinks to="admin-panel">Admin panel</NavLinks>
+              <NavLinks to="/admin-panel">Admin panel</NavLinks>
             </NavItem>
           </NavMenu>
           <NavBtn>

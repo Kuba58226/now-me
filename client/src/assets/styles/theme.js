@@ -10,5 +10,8 @@ export const theme = {
     warning: '#E1D888',
     darkPurple: '#C0C7D6',
     lightPurple: '#ECEFF7',
+    mainColor: '#5163A2',
+    hoverColor: '#2e438b',
+    loginButton: '#7B75C5',
   },
 };

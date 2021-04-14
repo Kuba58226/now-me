@@ -8,8 +8,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-right: 10px;
+
   ${Label} {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   ${Input} {
     margin-top: 5px;

@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import { FaTimes } from 'react-icons/fa';
 import { Link as LinkR } from 'react-router-dom';
-import { Link as LinkS } from 'react-scroll';
 
 export const SidebarContainer = styled.aside`
   position: fixed;
   z-index: 999;
   width: 100%;
   height: 100%;
-  background: #0d0d0d;
+  background: ${({ theme }) => theme.colors.mainColor};
   display: grid;
   align-items: center;
   left: 0;
@@ -46,7 +45,7 @@ export const SidebarWrapper = styled.div`
   color: #fff;
 `;
 
-export const SidebarLink = styled(LinkS)`
+export const SidebarLink = styled(LinkR)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +57,7 @@ export const SidebarLink = styled(LinkS)`
   color: #fff;
 
   &:hover {
-    color: #01bf71;
+    color: ${({ theme }) => theme.colors.hoverColor};
     transition: 0.2s ease-in-out;
   }
 `;
@@ -70,7 +69,7 @@ export const SideBtnWrap = styled.div`
 
 export const SidebarRoute = styled(LinkR)`
   border-radius: 50px;
-  background: #010606;
+  background: ${({ theme }) => theme.colors.loginButton};
   font-size: 16px;
   outline: none;
   border: none;
@@ -78,10 +77,11 @@ export const SidebarRoute = styled(LinkR)`
   transition: all 0.2s ease-in-out;
   text-decoration: none;
   padding: 16px 64px;
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: ;
+    background: ${({ theme }) => theme.colors.hoverColor};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;

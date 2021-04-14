@@ -149,7 +149,7 @@ const LoginView = () => {
           <p>Forgot password ? </p>
           <Register>
             <p>Not Our Member?</p>
-            <h4 onClick={() => history.push('/sing-in')}>SIGN UP</h4>
+            <h4 onClick={() => history.push('/sign-in')}>SIGN UP</h4>
           </Register>
         </LeftSide>
 

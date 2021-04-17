@@ -1,136 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+
 import FormField from '../components/molecules/FormField/FormField';
 import { Button } from '../components/atoms/Button/Button';
-
 import { ReactComponent as ManLogo } from '../assets/images/Group.svg';
 import { ReactComponent as WomenLogo } from '../assets/images/Group-1.svg';
-
-import { useDispatch } from 'react-redux';
-import { enterUserToken, enterUserRole } from '../features/appSlice';
-
 import { Alert } from '@material-ui/lab';
-import Swal from 'sweetalert2';
 
-const initialFormState = {
-  email: '',
-  password: '',
-};
-
-const initialValidState = {
-  email: true,
-  password: true,
-};
+import useLoginForm from '../hooks/useLoginForm';
 
 const LoginView = () => {
-  const [formValues, setFormValues] = useState(initialFormState);
-  const [isValid, setIsValid] = useState(initialValidState);
+  const { handleInputChange, handleLogin, handleValidData, formValues, isValid } = useLoginForm();
 
-  const dispatch = useDispatch();
   const history = useHistory();
-
-  const handleInputChange = (event) => {
-    setFormValues({
-      ...formValues,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (isValid.email === true && formValues.email.length > 0 && isValid.password === true && formValues.password.length > 0) {
-      axios
-        .post('http://127.0.0.1:8000/api/auth/login', {
-          email: formValues.email,
-          password: formValues.password,
-        })
-        .then((response) => {
-          console.log(response.data.user.role);
-          if (response.status === 200) {
-            dispatch(
-              enterUserToken({
-                userToken: response.data.access_token,
-              })
-            );
-            dispatch(
-              enterUserRole({
-                userRole: response.data.user.role,
-              })
-            );
-
-            Swal.fire({
-              icon: 'success',
-              title: 'Successful login',
-              confirmButtonText: `Ok`,
-            }).then((result) => {
-              if (result.isConfirmed) {
-                {
-                  history.push('/');
-                }
-              }
-            });
-          }
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Wrong username or password',
-            confirmButtonText: `Ok`,
-          });
-        });
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href>Why do I have this issue?</a>',
-      });
-    }
-  };
-
-  const handleValidData = (e) => {
-    if (e.target.name === 'email') {
-      if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(formValues.email)) {
-        setIsValid({
-          ...isValid,
-          [e.target.name]: true,
-        });
-      } else {
-        if (formValues.email.length === 0) {
-          setIsValid({
-            ...isValid,
-            email: true,
-          });
-        } else {
-          setIsValid({
-            ...isValid,
-            [e.target.name]: false,
-          });
-        }
-      }
-    } else if (e.target.name === 'password') {
-      if (formValues.password.length < 8) {
-        if (formValues.password.length === 0) {
-          setIsValid({
-            ...isValid,
-            password: true,
-          });
-        } else {
-          setIsValid({
-            ...isValid,
-            [e.target.name]: false,
-          });
-        }
-      } else {
-        setIsValid({
-          ...isValid,
-          [e.target.name]: true,
-        });
-      }
-    }
-  };
 
   return (
     <Container>

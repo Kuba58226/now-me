@@ -9,6 +9,7 @@ export const SidebarContainer = styled.aside`
   height: 100%;
   background: ${({ theme }) => theme.colors.mainColor};
   display: grid;
+  place-items: center;
   align-items: center;
   left: 0;
   transition: 0.3s ease-in-out;
@@ -33,7 +34,8 @@ export const Icon = styled.div`
 export const SidebarMenu = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 80px);
+  grid-template-rows: repeat(7, 70px);
+  place-items: center;
   text-align: center;
 
   @media screen and (max-width: 480px) {
@@ -65,6 +67,7 @@ export const SidebarLink = styled(LinkR)`
 export const SideBtnWrap = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const SidebarRoute = styled(LinkR)`

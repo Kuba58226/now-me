@@ -24,7 +24,6 @@ const initialValidState = {
 const useRegisterForm = () => {
   const [formValues, setFormValues] = useState(initialFormState);
   const [isValid, setIsValid] = useState(initialValidState);
-  const [isSubmit, setIsSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
@@ -36,7 +35,7 @@ const useRegisterForm = () => {
         if (response.status === 201) {
           Swal.fire({
             icon: 'success',
-            title: 'Your work has been saved',
+            title: 'You successfully created an account',
             confirmButtonText: `Confirm`,
           }).then((result) => {
             if (result.isConfirmed) {
@@ -63,19 +62,13 @@ const useRegisterForm = () => {
     } else if (e.target.name === 'lastname') {
       formValues.lastname.trim() ? setIsValid({ ...isValid, [e.target.name]: true }) : setIsValid({ ...isValid, [e.target.name]: false });
     } else if (e.target.name === 'phone_number') {
-      /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{3})/.test(formValues.phone_number)
-        ? setIsValid({ ...isValid, [e.target.name]: true })
-        : setIsValid({ ...isValid, [e.target.name]: false });
+      /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{3})/.test(formValues.phone_number) ? setIsValid({ ...isValid, [e.target.name]: true }) : setIsValid({ ...isValid, [e.target.name]: false });
     } else if (e.target.name === 'email') {
-      /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(formValues.email) && formValues.email.trim()
-        ? setIsValid({ ...isValid, [e.target.name]: true })
-        : setIsValid({ ...isValid, [e.target.name]: false });
+      /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(formValues.email) && formValues.email.trim() ? setIsValid({ ...isValid, [e.target.name]: true }) : setIsValid({ ...isValid, [e.target.name]: false });
     } else if (e.target.name === 'password') {
       formValues.password.length > 6 ? setIsValid({ ...isValid, [e.target.name]: true }) : setIsValid({ ...isValid, [e.target.name]: false });
     } else if (e.target.name === 'password_confirmation') {
-      formValues.password_confirmation === formValues.password && formValues.password_confirmation.length > 6
-        ? setIsValid({ ...isValid, [e.target.name]: true })
-        : setIsValid({ ...isValid, [e.target.name]: false });
+      formValues.password_confirmation === formValues.password && formValues.password_confirmation.length > 6 ? setIsValid({ ...isValid, [e.target.name]: true }) : setIsValid({ ...isValid, [e.target.name]: false });
     }
   };
 
@@ -95,7 +88,6 @@ const useRegisterForm = () => {
       isValid.password_confirmation === true &&
       formValues.password_confirmation.length > 0
     ) {
-      setIsLoading(true);
       fetchData();
       setFormValues(initialFormState);
     } else {
@@ -107,7 +99,7 @@ const useRegisterForm = () => {
     }
   };
 
-  return { handleInputChange, handleSubmitRegister, handleValidateFormValue, formValues, isValid, isSubmit, isLoading };
+  return { handleInputChange, handleSubmitRegister, handleValidateFormValue, formValues, isValid };
 };
 
 export default useRegisterForm;

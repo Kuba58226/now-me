@@ -7,7 +7,7 @@ import { Alert } from '@material-ui/lab';
 import { ReactComponent as LoginLogo } from '../assets/images/Login_Image.svg';
 
 const RegisterView = () => {
-  const { handleInputChange, handleSubmitRegister, handleValidateFormValue, formValues, isValid, isSubmit, isLoading } = useRegisterForm();
+  const { handleInputChange, handleSubmitRegister, handleValidateFormValue, formValues, isValid } = useRegisterForm();
 
   return (
     <Wrapper as="form" onSubmit={handleSubmitRegister}>

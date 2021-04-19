@@ -32,7 +32,7 @@ function App() {
             <Route path="/login">
               <LoginView />
             </Route>
-            <ProtectedRoute path="/admin-panel" component={AdminPanel} isAuth={"admin"} />
+            <ProtectedRoute path="/admin-panel" component={AdminPanel} isAuth={role} />
           </Switch>
         </MainTemplate>
       </ThemeProvider>

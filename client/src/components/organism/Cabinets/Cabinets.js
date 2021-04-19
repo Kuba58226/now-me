@@ -33,7 +33,6 @@ const Cabinets = () => {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/cabinets').then((response) => {
       setCabinets(response.data.cabinets);
-      console.log(response.data.cabinets);
     });
   }, [isLoading]);
 
@@ -44,19 +43,19 @@ const Cabinets = () => {
       .post('http://127.0.0.1:8000/api/cabinet', { name: formValues.cabinetName }, config)
       .then((response) => {
         setIsLoading((prevState) => !prevState);
-        console.log(response);
+        setFormValues({ cabinetName: '' });
       })
       .catch((err) => console.log(err));
   };
   return (
     <Container>
       <Form as="form" onSubmit={handleSubmit}>
-        <FormField label="New cabinet name" id="cabinet" name="cabinet" onChange={handleInputChange} />
+        <FormField label="New cabinet name" id="cabinet" name="cabinetName" value={formValues.cabinetName} onChange={handleInputChange} />
         <Button type="submit">Add</Button>
       </Form>
       <CabinetsGrid>
         {cabinets.map((cabinet) => (
-          <Cabinet key={cabinet.id}>{cabinet.numberOfRoom}</Cabinet>
+          <Cabinet key={cabinet.id}>{cabinet.name}</Cabinet>
         ))}
       </CabinetsGrid>
     </Container>
@@ -69,6 +68,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 80vw;
+  padding: 20px;
 `;
 
 const CabinetsGrid = styled.div`

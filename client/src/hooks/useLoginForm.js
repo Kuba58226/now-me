@@ -38,7 +38,6 @@ const useLoginForm = () => {
           password: formValues.password,
         })
         .then((response) => {
-          console.log(response.data.user.role);
           if (response.status === 200) {
             dispatch(
               enterUserToken({

@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import FormField from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
 import { Cabinet } from 'components/atoms/Cabinet/Cabinet';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Swal from 'sweetalert2';
 
 const initialFormState = {
   cabinetName: '',
@@ -47,6 +49,28 @@ const Cabinets = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  const handleDeleteCabinet = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:8000/api/cabinet/${id}`, config)
+          .then((response) => {
+            console.log(response);
+            // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  };
   return (
     <Container>
       <Form as="form" onSubmit={handleSubmit}>
@@ -55,7 +79,10 @@ const Cabinets = () => {
       </Form>
       <CabinetsGrid>
         {cabinets.map((cabinet) => (
-          <Cabinet key={cabinet.id}>{cabinet.name}</Cabinet>
+          <Cabinet key={cabinet.id}>
+            {cabinet.name}
+            <DeleteIcon onClick={() => handleDeleteCabinet(cabinet.id)} />
+          </Cabinet>
         ))}
       </CabinetsGrid>
     </Container>
@@ -84,4 +111,12 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const DeleteIcon = styled(HighlightOffIcon)`
+  margin-top: 3px;
+  cursor: pointer;
+  :hover {
+    opacity: 0.5;
+  }
 `;

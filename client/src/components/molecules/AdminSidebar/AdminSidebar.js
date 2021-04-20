@@ -39,7 +39,7 @@ const SidebarContainer = styled.div`
   width: 20vw;
   min-width: 180px;
   border-top: 1px solid #808080;
-  height: 100vh;
+  height: 90vh;
 
   > hr {
     margin-top: 10px;

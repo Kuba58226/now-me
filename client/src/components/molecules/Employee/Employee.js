@@ -28,9 +28,8 @@ const Employee = ({ employees, handleDelete }) => {
 const List = styled.ul`
   display: grid;
   list-style: none;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
   font-size: 20px;
-  // color: ${({ theme }) => theme.colors.grey};
 `;
 
 const ListItem = styled.li`

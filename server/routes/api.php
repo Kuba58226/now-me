@@ -41,6 +41,7 @@ Route::group([
 ], function($router){
     Route::post('/cabinet',[CabinetController::class,'createCabinet']);
     Route::put('/cabinet/{id}',[CabinetController::class,'updateCabinet']);
+    Route::delete('/cabinet/{id}',[CabinetController::class,'destroyCabinet']);
 });
 
 Route::group([
@@ -93,4 +94,3 @@ Route::group([
     Route::post('/visit',[VisitController::class,'createVisit']);
     Route::delete('/visit/{id}',[VisitController::class,'destroyVisit']);
 });
-

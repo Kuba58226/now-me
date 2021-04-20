@@ -40,12 +40,14 @@ const Cabinets = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading((prevState) => !prevState);
     axios
       .post('http://127.0.0.1:8000/api/cabinet', { name: formValues.cabinetName }, config)
       .then((response) => {
-        setIsLoading((prevState) => !prevState);
-        setFormValues({ cabinetName: '' });
+        if (response.status === 201) {
+          setIsLoading((prevState) => !prevState);
+          setFormValues({ cabinetName: '' });
+          Swal.fire('Added!', 'Your new cabinet has been added.', 'success');
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -64,8 +66,8 @@ const Cabinets = () => {
         axios
           .delete(`http://127.0.0.1:8000/api/cabinet/${id}`, config)
           .then((response) => {
-            console.log(response);
-            // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+            if (response.status === 200) setIsLoading((prevState) => !prevState);
+            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
           })
           .catch((err) => console.log(err));
       }

@@ -4,6 +4,7 @@ export const Cabinet = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 80px;
   width: 100%;
   background-color: #4288dd;
@@ -13,7 +14,6 @@ export const Cabinet = styled.div`
   font-family: -system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 20px;
   color: #fff;
-  cursor: pointer;
   &:hover {
     transform: scale(1.02);
   }

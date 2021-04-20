@@ -4,12 +4,14 @@ import Cabinets from 'components/organism/Cabinets/Cabinets';
 
 import styled from 'styled-components';
 import ProtectedRoute from 'ProtectedRoute/ProtectedRoute';
+import Services from 'components/organism/Services/Services';
 
 const AdminPanel = () => {
   return (
     <Wrapper>
       <Sidebar />
       <ProtectedRoute exact path="/admin-panel/cabinets" component={Cabinets} isAuth={'admin'} />
+      <ProtectedRoute exact path="/admin-panel/services" component={Services} isAuth={'admin'} />
     </Wrapper>
   );
 };

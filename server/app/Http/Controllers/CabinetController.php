@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use App\Http\Resources\Cabinet as CabinetResource;
@@ -66,6 +68,17 @@ class CabinetController extends Controller
                 'message' => 'Cabinet successfully updated',
                 'cabinet' => new CabinetResource($cabinet)
             ], 201);
+        }
+    }
+    public function destroyCabinet(Request $request){
+        $cabinet = Cabinet::findOrFail($request->id);
+        $employees = Employee::where('cabinet_id', $request->id)->get();
+        foreach($employees as $employee){
+            Service::where('employee_id', $employee->id)->delete();
+        }
+        Employee::where('cabinet_id', $request->id)->delete();
+        if($cabinet->delete()){
+            return new CabinetResource($cabinet);
         }
     }
 }

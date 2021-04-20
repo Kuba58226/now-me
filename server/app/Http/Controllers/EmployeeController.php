@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Service;
 use Validator;
 
 class EmployeeController extends Controller
@@ -65,6 +66,21 @@ class EmployeeController extends Controller
 
         return response()->json([
             'message' => 'Employee successfully updated',
+            'employee' => $employee
+        ], 201);
+    }
+    public function deleteEmployee(Request $request)
+    {
+        $employee = Employee::findOrFail($request->id);
+
+        $employee->delete();
+
+        $services = Service::where('employee_id',$request->id);
+
+        $services->delete();
+
+        return response()->json([
+            'message' => 'Employee successfully deleted',
             'employee' => $employee
         ], 201);
     }

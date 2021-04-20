@@ -55,6 +55,7 @@ Route::group([
 ], function($router){
     Route::post('/employee',[EmployeeController::class,'createEmployee']);
     Route::put('/employee/{id}',[EmployeeController::class,'updateEmployee']);
+    Route::delete('/employee/{id}',[EmployeeController::class,'deleteEmployee']);
 });
 
 Route::group([
@@ -69,6 +70,7 @@ Route::group([
 ], function($router){
     Route::post('/service',[ServiceController::class,'createService']);
     Route::put('/service/{id}',[ServiceController::class,'updateService']);
+    Route::delete('/service/{id}',[ServiceController::class,'deleteService']);
 });
 
 Route::group([

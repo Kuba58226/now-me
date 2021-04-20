@@ -67,4 +67,15 @@ class ServiceController extends Controller
             'service' => $service
         ], 201);
     }
+    public function deleteService(Request $request)
+    {
+        $service = Service::findOrFail($request->id);
+
+        $service->delete();
+
+        return response()->json([
+            'message' => 'Service successfully deleted',
+            'employee' => $service
+        ], 201);
+    }
 }

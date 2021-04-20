@@ -3,16 +3,18 @@ import styled from 'styled-components';
 export const MainWrapper = styled.div`
   display: grid;
   grid-template-rows: 0.5fr 0.5fr 1fr 5fr;
-  grid-template-columns: 1fr;
-  height: 90vh;
+  max-height: 90vh;
+  overflow: auto;
+  width: 100%;
 `;
 
 export const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 0.5fr 2fr;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   grid-row-start: 2;
   place-items: center;
   padding: 20px;
+  grid-gap: 40px;
 `;
 
 export const Button = styled.button`

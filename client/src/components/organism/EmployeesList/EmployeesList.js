@@ -14,7 +14,7 @@ const EmployeesList = () => {
         <FormField label="Name" id="firstName" name="firstName" value={formValues.firstName} onChange={handleInputChange} />
         <FormField label="Last Name" id="lastName" name="lastName" value={formValues.lastName} onChange={handleInputChange} />
         <FormField label="Profession" id="profession" name="profession" value={formValues.profession} onChange={handleInputChange} />
-        <SelectField label="Cabinets" id="cabinet_id" name="cabinet_id" value={formValues.cabinet_id} onChange={handleInputChange} tab={cabinets} />
+        <SelectField label="Cabinets" id="cabinet_id" name="cabinet_id" value={formValues.cabinet_id} onChange={handleInputChange} tab={cabinets} type="cabinets" />
         <Button type="submit">Add</Button>
       </Wrapper>
       <TableWrapper>

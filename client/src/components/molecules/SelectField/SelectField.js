@@ -17,19 +17,34 @@ const Wrapper = styled.div`
   }
 `;
 
-const SelectField = ({ tab, value, onChange, label, name, id, ...props }) => {
-  return (
-    <Wrapper>
-      <Label htmlFor={id}>{label}</Label>
-      <Select value={value} name={name} onChange={onChange} id={id}>
-        {tab.map((tab) => (
-          <option key={tab.id} value={tab.id}>
-            {tab.firstName} {tab.lastName}, {tab.profession}
-          </option>
-        ))}
-      </Select>
-    </Wrapper>
-  );
+const SelectField = ({ tab, value, onChange, label, name, id, type, ...props }) => {
+  if (type === 'cabinets') {
+    return (
+      <Wrapper>
+        <Label htmlFor={id}>{label}</Label>
+        <Select value={value} name={name} onChange={onChange} id={id}>
+          {tab.map((tab) => (
+            <option key={tab.id} value={tab.id}>
+              {tab.name}
+            </option>
+          ))}
+        </Select>
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        <Label htmlFor={id}>{label}</Label>
+        <Select value={value} name={name} onChange={onChange} id={id}>
+          {tab.map((tab) => (
+            <option key={tab.id} value={tab.id}>
+              {tab.firstName} {tab.lastName}, {tab.profession}
+            </option>
+          ))}
+        </Select>
+      </Wrapper>
+    );
+  }
 };
 
 export default SelectField;

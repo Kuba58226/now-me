@@ -10,6 +10,7 @@ import { Cabinet } from 'components/atoms/Cabinet/Cabinet';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Swal from 'sweetalert2';
 
+
 const initialFormState = {
   cabinetName: '',
 };

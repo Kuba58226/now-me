@@ -24,7 +24,7 @@ const SelectField = ({ tab, value, onChange, label, name, id, ...props }) => {
       <Select value={value} name={name} onChange={onChange} id={id}>
         {tab.map((tab) => (
           <option key={tab.id} value={tab.id}>
-            {tab.name}
+            {tab.firstName} {tab.lastName}, {tab.profession}
           </option>
         ))}
       </Select>
